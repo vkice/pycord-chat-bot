@@ -9,6 +9,7 @@ class Chat_Bot():
     
     def __init__(self, environment, conversation_limit: int = convo_limit):
         
+        self.client         = openai.OpenAI(api_key=os.environ['OPENAI_KEY'])
         self.chatgpt_model  = 'gpt-4-1106-preview' # Currently using the GPT4 Turbo preview, but can utilize other, cheaper one like 3.5 Turbo
         self.environment    = environment # Have multiple servers? Separate prompts/sys messages for each one with a special env
         self.extra_msg      = str(' Answer questions in the first person perspective. Do your absolute best to be creative, talk naturally, and conversational. '
@@ -47,9 +48,6 @@ class Chat_Bot():
         max_token_ceiling = 3500 # Setting a character limit for GP4 , this way we won't rate limit as easily
         
         
-        openai.api_key = os.environ['OPENAI_KEY']
-        if "whacky" in str(prompt).lower():
-            self.extra_msg = self.whacky_msg + self.extra_msg
         while len(str(self.messages_queue)) > max_chars:
             self.messages_queue.append({"role": "user", "content": " "})
         max_tokens_len = (max_token_ceiling - len(sys_msg) - len(self.extra_msg) - len(str(self.messages_queue)))
@@ -61,7 +59,7 @@ class Chat_Bot():
                 
                 if max_tokens_len < 100:
                     max_tokens_len = 500 # In case we underflow the max tokens
-                chat_compl = openai.ChatCompletion.create(
+                chat_compl = self.client.chat.completions.create(
                     model = self.chatgpt_model, 
                     messages = [
                         {"role": "system", "content": sys_msg}, 

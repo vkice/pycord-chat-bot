@@ -3,6 +3,8 @@ from core_ai import Chat_Bot
 from discord.ext import commands
 
 chat_bot = Chat_Bot(environment="my_server")
+img_client = openai.OpenAI(api_key=os.environ['OPENAI_KEY'])
+
 class OpenAISlash(commands.Cog):
         
     def __init__(self, bot_: commands.bot):
@@ -12,7 +14,7 @@ class OpenAISlash(commands.Cog):
     @discord.slash_command(description="Send an input to ChatGPT")
     async def chat(self, ctx, prompt):
         
-        await ctx.defer()
+        await ctx.response.defer()
         await chat_bot.message_respond(prompt=prompt, discord_message=prompt, msg_ctx=ctx)
 
     # DALL-E Slash
@@ -20,8 +22,7 @@ class OpenAISlash(commands.Cog):
     async def image(self, ctx, input):
         
         await ctx.defer()
-        openai.api_key = os.environ['OPENAI_KEY']
-        image_resp = openai.images.generate( # Very basic, see https://platform.openai.com/docs/guides/images?context=node for additional parameters
+        image_resp = img_client.images.generate( # Very basic, see https://platform.openai.com/docs/guides/images?context=node for additional parameters
             model="dall-e-3",
             prompt=input,
             n=1,
