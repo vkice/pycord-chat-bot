@@ -4,7 +4,11 @@ from discord.ext import commands
 
 load_dotenv()
 
-bot = commands.Bot(command_prefix=">>", intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Activity(type=discord.ActivityType.watching, name=" for chats"))
+bot = commands.Bot(command_prefix=">>",
+                   intents=discord.Intents.all(),
+                   status=discord.Status.online,
+                   activity=discord.Activity(type=discord.ActivityType.watching, name=" for chats")
+                   )
 
 @bot.event
 async def on_ready():
