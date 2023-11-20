@@ -16,7 +16,11 @@ Example using the Channel Monitoring Cog and a customized prompt to act like a C
 
 ## Installation
 
-To use this bot, you'll need to create a Discord Developer account and invite the bot to your server. There's multiple ways to run the bot, but you could simply run it on your system's installed python as a test. You can also visit this article on my website for a [guide to setting this up](https://vkice.me/posts/discord-python-bot-docker-ecs-aws/#discord-developer-setup "Automatically Deploy Your Discord Python Bot into a Docker Container Hosted on ECS AWS") or read it in full on how to automate a CI/CD pipeline to deploy as a Docker container on AWS ECS.
+To use this bot, you'll need to create a Discord Developer account, grab the bot token and invite the bot to your server. There's multiple ways to run the bot, but you could simply run it on your system's installed python as a test. You can also visit this article on my website for a [guide to setting this up](https://vkice.me/posts/discord-python-bot-docker-ecs-aws/#discord-developer-setup "Automatically Deploy Your Discord Python Bot into a Docker Container Hosted on ECS AWS") or read it in full on how to automate a CI/CD pipeline to deploy as a Docker container on AWS ECS.
+
+You'll also need an API key from [OpenAI](https://platform.openai.com/api-keys), this will cost you money per request but for casual use it's not very significant. Be sure to set a usage limit so your friends don't drain your wallet!
+
+Ensure your Discord and OpenAI tokens are kept secure!
 
 1. **Clone the repository**
     ```bash

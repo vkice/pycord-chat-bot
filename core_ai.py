@@ -9,6 +9,7 @@ class Chat_Bot():
     
     def __init__(self, environment, conversation_limit: int = convo_limit):
         
+        self.chatgpt_model  = 'gpt-4-1106-preview' # Currently using the GPT4 Turbo preview, but can utilize other, cheaper one like 3.5 Turbo
         self.environment    = environment # Have multiple servers? Separate prompts/sys messages for each one with a special env
         self.extra_msg      = str(' Answer questions in the first person perspective. Do your absolute best to be creative, talk naturally, and conversational. '
             # Enter in any other info here, how you would like it to respond to messages
@@ -61,7 +62,7 @@ class Chat_Bot():
                 if max_tokens_len < 100:
                     max_tokens_len = 500 # In case we underflow the max tokens
                 chat_compl = openai.ChatCompletion.create(
-                    model ='gpt-4-1106-preview', 
+                    model = self.chatgpt_model, 
                     messages = [
                         {"role": "system", "content": sys_msg}, 
                         *self.messages_queue, 
