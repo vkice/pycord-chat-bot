@@ -21,7 +21,7 @@ class OpenAISlash(commands.Cog):
         
         await ctx.defer()
         openai.api_key = os.environ['OPENAI_KEY']
-        image_resp = openai.Image.create( # Very basic, see https://platform.openai.com/docs/guides/images?context=node for additional parameters
+        image_resp = openai.images.generate( # Very basic, see https://platform.openai.com/docs/guides/images?context=node for additional parameters
             model="dall-e-3",
             prompt=input,
             n=1,
