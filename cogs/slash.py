@@ -21,23 +21,21 @@ class OpenAISlash(commands.Cog):
     @discord.slash_command(description="Send an image generation")
     async def image(self, ctx, input):
         
-        await ctx.defer()
-        image_resp = img_client.images.generate( # Very basic, see https://platform.openai.com/docs/guides/images?context=node for additional parameters
-            model="dall-e-3",
-            prompt=input,
-            n=1,
-            size="1024x1024",
-            quality="standard"
-            )
-        response = image_resp.data[0].url
-        await ctx.respond(response)
-        
-        
-    async def error_handling(self, ctx, error):
-        if isinstance(error):
-            await ctx.send("Sorry, I've had an issue understanding you. What did you say?", reference=ctx.message)
-        else:
-            raise error
+        try:
+            await ctx.defer()
+            image_resp = img_client.images.generate( # Very basic, see https://platform.openai.com/docs/guides/images?context=node for additional parameters
+                model="dall-e-3",
+                prompt=input,
+                n=1,
+                size="1024x1024",
+                quality="standard"
+                )
+            response = image_resp.data[0].url
+            await ctx.respond(response)
+            
+        except Exception as e:
+            print("Error: {e}")
+            await ctx.respond("Sorry, there was an issue either with the server or your prompt!")
 
 
 def setup(bot):

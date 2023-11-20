@@ -24,14 +24,6 @@ class OpenAIMon(commands.Cog):
             
         else:
             return
-        
-        
-    async def error_handling(self, ctx, error):
-        if isinstance(error):
-            await ctx.send("Sorry, I've had an issue understanding you. What did you say?", reference=ctx.message)
-            
-        else:
-            raise error
 
 def setup(bot):
     bot.add_cog(OpenAIMon(bot))
