@@ -10,7 +10,7 @@ class Chat_Bot():
     def __init__(self, environment, conversation_limit: int = convo_limit):
         
         self.client         = openai.OpenAI(api_key=os.environ['OPENAI_KEY'])
-        self.chatgpt_model  = 'gpt-4-1106-preview' # Currently using the GPT4 Turbo preview, but can utilize other, cheaper one like 3.5 Turbo
+        self.chatgpt_model  = 'gpt-4-turbo-preview' # Currently using the GPT4 Turbo preview, but can utilize other, cheaper one like 3.5 Turbo
         self.environment    = environment # Have multiple servers? Separate prompts/sys messages for each one with a special env
         self.extra_msg      = str(' Answer questions in the first person perspective. Do your absolute best to be creative, talk naturally, and conversational. '
             # Enter in any other info here, how you would like it to respond to messages
