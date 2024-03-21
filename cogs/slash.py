@@ -30,8 +30,14 @@ class OpenAISlash(commands.Cog):
                 size="1024x1024",
                 quality="standard"
                 )
-            response = image_resp.data[0].url
-            await ctx.respond(response)
+            image_url = image_resp.data[0].url
+            
+            response = requests.get(image_url) # Storing the URL into a new var as it will eventually time out and the image will be lost
+            response.raise_for_status()  # Raises stored HTTPError, if one occurred.
+            image_bytes = BytesIO(response.content) # BytesIO Object
+            
+            file = discord.File(fp=image_bytes, filename="prompt.png")
+            await ctx.respond(file=file)
             
         except Exception as e:
             print("Error: {e}")
